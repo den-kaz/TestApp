@@ -13,7 +13,7 @@
         {{nav.user.name}}
     </md-nav-item>
 
-    <md-menu md-position-mode="target-right target">
+    <md-menu ng-show="nav.user.isAuth" md-position-mode="target-right target">
         <md-button aria-label="Open demo menu" ng-click="$mdMenu.open($event)"
                    class="_md-nav-button md-accent md-button md-ink-ripple md-unselected">
             Cart: {{nav.cart.length}} items
