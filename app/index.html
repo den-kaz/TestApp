@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html ng-app="app" lang="en" ng-strict-di ng-controller="NavigationController as nav"> <!--  -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="{{nav.app.description}}">
+    <meta name="keywords" content="{{nav.app.keywords}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{nav.app.title}}</title>
+
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+    <link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css">
+
+    <!-- <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"> -->
+
+    <link rel="stylesheet" href="app.css">
+
+</head>
+<body layout="column" ng-cloak>
+
+<div ng-include="'components/templates/navbar.html'"></div>
+
+<ui-view id="lvl-0-index" layout="column" layout-align="start center" flex></ui-view>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
+<script src="bower_components/angular-messages/angular-messages.js"></script>
+
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/angular-moment/angular-moment.js"></script>
+
+<script src="bower_components/angular-material/angular-material.js"></script>
+<script src="bower_components/angular-material-icons/angular-material-icons.js"></script>
+
+
+<script src="app.js"></script>
+<script src="components/controllers/navigation.js"></script>
+<script src="signup/signup.js"></script>
+<script src="login/login.js"></script>
+<script src="search/search.js"></script>
+
+<script src="components/services/authService.js"></script>
+<script src="components/services/hashService.js"></script>
+<script src="components/services/shopService.js"></script>
+
+<script src="components/directives/star-rating.js"></script>
+
+<!-- <script src="components/version/version.js"></script> -->
+<!-- <script src="components/version/version-directive.js"></script> -->
+<!-- <script src="components/version/interpolate-filter.js"></script> -->
+</body>
+</html>

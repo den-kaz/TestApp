@@ -1,0 +1,41 @@
+<div layout="column" style="width: 1000px;">
+
+    <div ng-include="'components/templates/filter.html'"></div>
+
+    <div layout="row" flex class="form-box" style="overflow: auto;">
+        <md-list>
+            <md-list-item ng-repeat="product in ctrl.products | filter : ctrl.search
+                                                              | priceRange : ctrl.filter.price
+                                                              | dateRange : ctrl.filter.date">
+                <md-card layout="row" flex>
+                    <md-card-title>
+                        <md-card-title-media>
+                            <div class="md-media-md card-media"></div>
+                        </md-card-title-media>
+                        <md-card-title-text>
+                            <span class="md-headline">{{product.name}}</span>
+                            <span class="md-subhead">
+                                {{product.issueDate | date : 'shortDate'}},
+                                {{product.price | currency}},
+                                {{["", "Red", "White", "Black", "Blue", "Yellow", "Green"][product.color] || "None"}},
+                                {{product.inStock ? "In Stock" : "Stay out"}}
+                            </span>
+                            <star-rating max="5" readonly="ctrl.starsReadonly"
+                                         on-rating-select="ctrl.rateFunction(rating)"
+                                         ng-model="product.rate">
+                            </star-rating>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-raised" ng-class="{'md-warn' : product.inCart}"
+                                   ng-click="ctrl.order(product.id)">
+                            Order
+                        </md-button>
+                    </md-card-actions>
+                </md-card>
+            </md-list-item>
+        </md-list>
+    </div>
+</div>
+
+

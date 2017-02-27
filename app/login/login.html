@@ -1,0 +1,50 @@
+<div flex layout-align="center center" layout="column" layout-fill style="z-index: 1;">
+
+    <div class="form-container md-whiteframe-12dp" style="margin: auto;" flex-offset="20">
+        <md-toolbar class="amd-toolbar">
+            <div class="md-toolbar-tools form-header">
+                Login
+            </div>
+        </md-toolbar>
+
+        <md-divider></md-divider>
+
+        <div ng-include="'components/templates/message.html'"></div>
+
+        <form class="form-content" layout="column" role="form" name="login">
+
+            <md-content class="md-no-momentum form-input">
+                <md-input-container class="md-icon-float md-block">
+                    <label>e-Mail</label>
+                    <md-icon md-svg-src="email" class="email"></md-icon>
+                    <input type="email" ng-required="true" md-maxlength="50"
+                           autofocus name="email"
+                           ng-model="ctrl.credentials.email">
+                    <div ng-messages="login.email.$error" role="alert" multiple>
+                        <div ng-message="required" class="my-message">e-Mail is required</div>
+                        <div ng-message="md-maxlength" class="my-message">Max length 50 symbols</div>
+                        <div ng-message="email" class="my-message">e-Mail is wrong</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-icon-float md-block">
+                    <label>Password</label>
+                    <md-icon md-svg-src="vpn_key" class="email"></md-icon>
+                    <input type="password" ng-required="true" md-maxlength="50"
+                           name="password"
+                           ng-model="ctrl.credentials.password">
+                    <div ng-messages="login.password.$error" role="alert" multiple>
+                        <div ng-message="required" class="my-message">Password is required</div>
+                        <div ng-message="md-maxlength" class="my-message">Max length 50 symbols</div>
+                    </div>
+                </md-input-container>
+            </md-content>
+
+            <md-button class="md-raised md-primary" aria-label="Login" type="submit"
+                       ng-disabled="login.$invalid || !login.$dirty || ctrl.message"
+                       ng-click="ctrl.login()">
+                Enter
+            </md-button>
+        </form>
+    </div>
+</div>

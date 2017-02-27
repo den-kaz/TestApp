@@ -1,0 +1,9 @@
+<div class="message" layout="row" flex layout-align="center center" data-ng-hide="ctrl.message === ''">
+    <blockquote flex style="color: brown;">
+        <span>{{ctrl.message}}</span>
+    </blockquote>
+    <md-button class="md-icon-button" aria-label="Cleaning message" ng-click="ctrl.message=''">
+        <md-icon md-svg-src="clear"></md-icon>
+    </md-button>
+    <md-divider></md-divider>
+</div>

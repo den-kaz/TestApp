@@ -1,0 +1,8 @@
+<section layout="row" layout-align="start center" layout-wrap>
+    <md-button ng-disabled="readonly" class="md-icon-button md-primary star"
+               ng-repeat="star in stars" aria-label="Star {{$index + 1}}"
+               ng-click="toggle($index)">
+        <md-icon md-svg-src="star" ng-show="star.filled"></md-icon>
+        <md-icon md-svg-src="star_border" ng-hide="star.filled"></md-icon>
+    </md-button>
+</section>

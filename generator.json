@@ -1,0 +1,14 @@
+[
+  {
+    "repeat(50, 100)": {
+      "id": "{{index(0)}}",
+      "name": "{{company().toUpperCase()}} {{country()}} {{state()}}",
+      "color": "{{random('Red', 'White', 'Black', 'Blue', 'Yellow', 'Green')}}",
+      "price": "{{floating(10, 10000, 2)}}",
+      "rating": "{{floating(1, 1000, 4)}}",
+      "issueDate": "{{moment(this.date(new Date(2014, 0, 1), new Date())).format('l')}}",
+      "inStock": "{{bool()}}",
+      "image": "images/products/112x112"
+    }
+  }
+]

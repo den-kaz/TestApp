@@ -1,0 +1,64 @@
+<div flex layout-align="center center" layout="column" layout-fill  style="z-index: 1;">
+
+    <div class="form-container md-whiteframe-12dp" style="margin: auto;" flex-offset="20">
+        <md-toolbar class="amd-toolbar">
+            <div class="md-toolbar-tools form-header">
+                New user registration
+            </div>
+        </md-toolbar>
+
+        <md-divider></md-divider>
+
+        <div ng-include="'components/templates/message.html'"></div>
+
+        <form class="form-content" layout="column" role="form" name="signup">
+
+            <md-content class="md-no-momentum form-input">
+                <md-input-container class="md-icon-float md-block">
+                    <label>e-Mail</label>
+                    <md-icon md-svg-src="email" class="email"></md-icon>
+                    <input type="email" ng-required="true" md-maxlength="50"
+                           autofocus name="email"
+                           ng-model="ctrl.registration.email">
+                    <div ng-messages="signup.email.$error" role="alert" multiple>
+                        <div ng-message="required" class="my-message">e-Mail is required</div>
+                        <div ng-message="md-maxlength" class="my-message">Max length 50 symbols</div>
+                        <div ng-message="email" class="my-message">e-Mail is wrong</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-icon-float md-block">
+                    <label>Password</label>
+                    <md-icon md-svg-src="vpn_key" class="email"></md-icon>
+                    <input type="password" ng-required="true" md-maxlength="50"
+                           name="password"
+                           ng-model="ctrl.registration.password">
+                    <div ng-messages="signup.password.$error" role="alert" multiple>
+                        <div ng-message="required" class="my-message">Password is required</div>
+                        <div ng-message="md-maxlength" class="my-message">Max length 50 symbols</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-icon-float md-block">
+                    <label>Confirm password</label>
+                    <md-icon md-svg-src="vpn_key" class="email"></md-icon>
+                    <input type="password" ng-required="true" md-maxlength="50"
+                           name="confirmPassword"
+                           ng-model="ctrl.registration.confirmPassword"
+                           ng-pattern="{{ctrl.registration.password}}">
+                    <div ng-messages="signup.confirmPassword.$error" role="alert" multiple>
+                        <div ng-message="required" class="my-message">Confirmation is required</div>
+                        <div ng-message="md-maxlength" class="my-message">Max length 50 symbols</div>
+                        <div ng-message="pattern" class="my-message">Password and confirmation not equal</div>
+                    </div>
+                </md-input-container>
+            </md-content>
+
+            <md-button class="md-raised md-primary" aria-label="Signup" type="submit"
+                       ng-disabled="signup.$invalid || !signup.$dirty || ctrl.message"
+                       ng-click="ctrl.signup()">
+                Sign up
+            </md-button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<div layout="row" style="z-index: 1; padding: 16px 16px;">
+    <form name="filter" flex class="md-whiteframe-z1">
+        <div class="form-content" layout="column">
+            <md-content class="md-no-momentum form-input">
+
+                <div layout="row">
+
+                    <md-input-container class="md-icon-float md-block" flex>
+                        <label>From</label>
+                        <md-datepicker md-open-on-focus ng-required="true" name="dateFrom"
+                                       md-min-date="ctrl.date.min"
+                                       md-max-date="ctrl.filter.dateTo || ctrl.date.max"
+                                       ng-model="ctrl.filter.date.min">
+                        </md-datepicker>
+                        <div ng-messages="filter.dateFrom.$error">
+                            <div ng-message="valid">The entered value is not a date!</div>
+                            <div ng-message="required">Date is required!</div>
+                            <div ng-message="mindate">Date is too early!</div>
+                            <div ng-message="maxdate">Date is too late!</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block" flex>
+                        <label>To</label>
+                        <md-datepicker md-open-on-focus ng-required="true" name="dateTo"
+                                       md-min-date="ctrl.filter.dateFrom || ctrl.date.min"
+                                       md-max-date="ctrl.date.max"
+                                       ng-model="ctrl.filter.date.max">
+                        </md-datepicker>
+                        <div ng-messages="filter.dateTo.$error">
+                            <div ng-message="valid">The entered value is not a date!</div>
+                            <div ng-message="required">Date is required!</div>
+                            <div ng-message="mindate">Date is too early!</div>
+                            <div ng-message="maxdate">Date is too late!</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block" flex>
+                        <md-switch class="md-warn" aria-label="In Stock Only" style="margin-top: 0;"
+                                   ng-true-value="true" ng-false-value="undefined"
+                                   ng-model="ctrl.search.inStock">
+                            In stock only
+                        </md-switch>
+                    </md-input-container>
+
+                </div>
+
+                <div layout-gt-xs="row">
+
+                    <md-input-container class="md-icon-float md-block" flex>
+                        <label>Price from (USD)</label>
+                        <input type="number" step="any" ng-required="false" name="priceFrom"
+                               min="10" max="10000"
+                               ng-model="ctrl.filter.price.min">
+                        <div ng-messages="filter.priceFrom.$error" role="alert">
+                            <div ng-message="required">Price is required!</div>
+                            <div ng-message="min">Price should be more than $10!</div>
+                            <div ng-message="max">Price should be less than $10.000 or "Price to"!</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block" flex>
+                        <label>Price to (USD)</label>
+                        <input type="number" step="any" ng-required="false" name="priceTo"
+                               min="10" max="10000"
+                               ng-model="ctrl.filter.price.max">
+                        <div ng-messages="filter.priceTo.$error" role="alert">
+                            <div ng-message="required">Price is required!</div>
+                            <div ng-message="min">Price should be more than $10 or "Price from"!</div>
+                            <div ng-message="max">Price should be less than $10.000!</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-icon-float md-block" flex>
+                        <label>Color</label>
+                        <md-select ng-model="ctrl.search.color" name="color">
+                            <md-option ng-value="undefined">Any</md-option>
+                            <md-option ng-repeat="color in [1,2,3,4,5,6]" ng-value="color">
+                                {{["", "Red", "White", "Black", "Blue", "Yellow", "Green"][color] || "None"}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+
+                </div>
+            </md-content>
+        </div>
+    </form>
+</div>
