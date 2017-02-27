@@ -125,9 +125,9 @@
 
         function newUser() {
             return {
-                "name": "User",
+                "name": "",
                 "hash": "",
-                "isAuth": true
+                "isAuth": false
             };
         }
 
