@@ -30,8 +30,14 @@
 
         function signup() {
             auth.signup().then(
-                function (isAuth) { isAuth ? $state.go("search") : self.message = "User already exist!"; },
-                function (message) { self.message = message; });
+                function (isSigned) {
+                    isSigned
+                        ? $state.go("search")
+                        : self.message = "User already exist!";
+                },
+                function (message) {
+                    self.message = message;
+                });
         }
     }
 
@@ -42,7 +48,8 @@
             "url" :         "/signup",
             "templateUrl":  "signup/signup.html",
             "controller":   "SignupController",
-            "controllerAs": "ctrl"
+            "controllerAs": "ctrl",
+            "authLevel":    0
         })
     }
 })();

@@ -6,23 +6,25 @@
         .module("app.authService", [])
         .factory("auth", authService);
 
-    authService.$inject = ["$q", "$log", "localStorageService", "hash"];
+    authService.$inject = ["$q", "$log", "localStorageService", "$state", "hash"];
 
-    function authService($q, $log, localStorageService, hash) {
+    function authService($q, $log, localStorageService, $state, hash) {
         const self = this;
 
-        self.user = newUser();
+        self.user =         newUser();
         self.registration = newRegistartion();
-        self.credentials = newCredentials();
+        self.credentials =  newCredentials();
 
         self.public = {
             // Variables
-            user: self.user,
+            user:         self.user,
             registration: self.registration,
-            credentials: self.credentials,
+            credentials:  self.credentials,
             // Functions
             signup: signup,
-            login: login
+            login:  login,
+            logout: logout,
+            load:   load
         };
 
         return self.public;
@@ -51,9 +53,15 @@
             return deferred.promise;
         }
 
+        function logout() {
+            setUser("", "", 0);
+            localStorageService.remove("user");
+            $state.go("login");
+        }
+
         function addUser(name, hash) {
-            // Cleaning current user credentials
-            setUser("", "", false);
+            // Cleaning current user
+            setUser("", "", 0);
 
             // Load users array or create new
             const users = localStorageService.get("users") || [];
@@ -70,18 +78,21 @@
                 users.push(account);
                 localStorageService.set("users", users);
 
-                // Set new user credentials
-                setUser(name, hash, true);
+                // Set new user
+                setUser(name, hash, 1);
+
+                // Save user credentials to local storage
+                save();
 
                 // Cleaning sign up fields
                 setRegistration("", "", "");
             }
 
-            return self.user.isAuth;
+            return self.user.level !== 0;
         }
 
         function checkUser(name, hash) {
-            // Load users array or create new
+            // Load users array
             const users = localStorageService.get("users");
             if (!users) return "Directory is empty";
 
@@ -90,16 +101,32 @@
             if (id === -1) return "Account not found";
             if (users[id].hash !== hash) return "Password is wrong";
 
-            // Set current user credentials
-            setUser(name, hash, true);
+            // Set current user
+            setUser(name, hash, 1);
+
+            // Save user credentials to local storage if needed
+            if (self.credentials.remember) save();
 
             return "";
         }
 
-        function setUser(name, hash, isAuth) {
+        function save(){
+            localStorageService.set("user", self.user);
+            $log.debug("User credentials saved to local storage :", self.user);
+        }
+
+        function load(){
+            const user = localStorageService.get("user");
+            if (user) {
+                setUser(user.name, user.hash, user.level);
+                $log.debug("User credentials loaded from local storage :", self.user);
+            }
+        }
+
+        function setUser(name, hash, level) {
             self.user.name = name;
             self.user.hash = hash;
-            self.user.isAuth = isAuth;
+            self.user.level = level;
         }
 
         function setRegistration(email, password, confirmPassword) {
@@ -125,9 +152,9 @@
 
         function newUser() {
             return {
-                "name": "",
-                "hash": "",
-                "isAuth": false
+                "name":  "",
+                "hash":  "",
+                "level": 0
             };
         }
 
@@ -142,13 +169,14 @@
         function newCredentials() {
             return {
                 "email": "",
-                "password": ""
+                "password": "",
+                "remember": true
             }
         }
 
         function newAccount(id, name, hash) {
             return {
-                "id": id,
+                "id":   id,
                 "name": name,
                 "hash": hash
             }

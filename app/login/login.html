@@ -38,6 +38,14 @@
                         <div ng-message="md-maxlength" class="my-message">Max length 50 symbols</div>
                     </div>
                 </md-input-container>
+
+                <md-input-container class="md-icon-float md-block">
+                    <md-switch class="md-primary" aria-label="Remember me" style="margin-top: 0;"
+                               ng-true-value="true" ng-false-value="false"
+                               ng-model="ctrl.credentials.remember">
+                        Remember me
+                    </md-switch>
+                </md-input-container>
             </md-content>
 
             <md-button class="md-raised md-primary" aria-label="Login" type="submit"

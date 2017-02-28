@@ -9,9 +9,21 @@
         .module("app.navigation", ["ui.router"])
         .controller("NavigationController", navigationController);
 
-    navigationController.$inject = [ "$log", "$state", "$stateParams", "auth", "shop" ];
+    navigationController.$inject = [
+        "$log",
+        "$state",
+        //"$stateParams",
+        "auth",
+        "shop"
+    ];
 
-    function navigationController( $log, $state, $stateParams, auth, shop ) {
+    function navigationController(
+        $log,
+        $state,
+        //$stateParams,
+        auth,
+        shop
+    ) {
         const self = this;
         self.ctrl = "navigationController";
         $log.debug(`INIT CONTROLLER > ${self.ctrl} >`);
@@ -30,12 +42,13 @@
 
         // Navigation methods
         self.signup = signup;
-        self.login = login;
+        self.login =  login;
+        self.logout = logout;
         self.search = search;
-        self.toCart = toCart;
+        //self.toCart = toCart;
 
         // Renew state for current page
-        self.reloadPage = reloadPage;
+        //self.reloadPage = reloadPage;
 
         // FUNCTIONS
 
@@ -43,16 +56,16 @@
 
         function login() { $state.go("login", {}); }
 
+        function logout() { auth.logout(); }
+
         function search() { $state.go("search", {}); }
 
-        function toCart() {
+        //function toCart() { }
 
-        }
-
-        function reloadPage() {
-            $state.transitionTo($state.current, $stateParams, {
-                reload: true, inherit: false, notify: true
-            });
-        }
+        //function reloadPage() {
+        //    $state.transitionTo($state.current, $stateParams, {
+        //        reload: true, inherit: false, notify: true
+        //    });
+        //}
     };
 })();

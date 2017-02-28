@@ -33,7 +33,9 @@
         "$log",
         "$rootScope",
         "$state",
-        "$stateParams"
+        "$stateParams",
+
+        "auth"
     ];
 
     function runBlock(
@@ -41,14 +43,28 @@
         $log,
         $rootScope,
         $state,
-        $stateParams
+        $stateParams,
+
+        auth
     ){
         $log.info("  <<<  Hey! AngularJS application now running ...  >>>   ");
 
-        $rootScope.$state = $state;
+        // Load user credentials from local storage if existed
+        auth.load();
+
+        $rootScope.$state =       $state;
         $rootScope.$stateParams = $stateParams;
 
-        // authService.loadUserCredentials();
+        $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+
+            $log.debug(`Check Auth: CtrlLevel = ${toState.authLevel}, UserLevel = ${auth.user.level}`);
+
+            if (toState.authLevel > auth.user.level){
+                $log.error("User auth level is low for accessing!");
+                $state.go("login");
+                event.preventDefault();
+            }
+        });
     };
 
     appConfig.$inject = [

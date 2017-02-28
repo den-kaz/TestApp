@@ -2,18 +2,23 @@
 
     <span flex></span>
 
-    <md-nav-item ng-hide="nav.user.isAuth" md-nav-click="nav.signup()" aria-label="Sign up">
+    <md-nav-item ng-show="nav.user.level === 0" md-nav-click="nav.signup()" aria-label="Sign up">
         Sign up
     </md-nav-item>
-    <md-nav-item ng-hide="nav.user.isAuth" md-nav-click="nav.login()" aria-label="Login">
+    <md-nav-item ng-show="nav.user.level === 0" md-nav-click="nav.login()" aria-label="Login">
         Login
     </md-nav-item>
 
-    <md-nav-item ng-show="nav.user.isAuth" md-nav-click="nav.search()" aria-label="Logout">
+    <md-nav-item ng-show="nav.user.level !== 0" md-nav-click="nav.search()" aria-label="Search">
         {{nav.user.name}}
     </md-nav-item>
 
-    <md-menu ng-show="nav.user.isAuth" md-position-mode="target-right target">
+    <md-nav-item ng-show="nav.user.level !== 0" md-nav-click="nav.logout()" aria-label="Log out">
+        Log out
+    </md-nav-item>
+
+
+    <md-menu ng-show="nav.user.level !== 0" md-position-mode="target-right target">
         <md-button aria-label="Open demo menu" ng-click="$mdMenu.open($event)"
                    class="_md-nav-button md-accent md-button md-ink-ripple md-unselected">
             Cart: {{nav.cart.length}} items

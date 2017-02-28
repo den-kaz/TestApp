@@ -9,18 +9,12 @@
         .filter("priceRange", priceRange)
         .filter("dateRange", dateRange);
 
-    searchController.$inject = [ "$log", "$state", "auth", "shop" ];
+    searchController.$inject = [ "$log", "shop" ];
 
-    function searchController( $log, $state, auth, shop ) {
+    function searchController( $log, shop ) {
         const self = this;
         self.ctrl = "searchController";
         $log.debug(`INIT CONTROLLER > ${self.ctrl} >`);
-
-        // Check user authorization
-        if (!auth.user.isAuth) {
-            $log.error("User is not authorized!");
-            return $state.go("login");
-        }
 
         // Load products list
         shop.loadProducts();
@@ -127,10 +121,11 @@
 
     function config($stateProvider) {
         $stateProvider.state("search", {
-            "url": "/search",
-            "templateUrl": "search/search.html",
-            "controller": "SearchController",
-            "controllerAs": "ctrl"
+            "url":          "/search",
+            "templateUrl":  "search/search.html",
+            "controller":   "SearchController",
+            "controllerAs": "ctrl",
+            "authLevel":    1
         })
     }
 })();

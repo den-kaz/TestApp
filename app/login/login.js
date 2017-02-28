@@ -42,7 +42,8 @@
             "url" :         "/login",
             "templateUrl":  "login/login.html",
             "controller":   "LoginController",
-            "controllerAs": "ctrl"
+            "controllerAs": "ctrl",
+            "authLevel":    0
         })
     }
 })();
